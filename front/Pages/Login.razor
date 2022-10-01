@@ -17,6 +17,11 @@
         </p>
 
         <p>
+            <label>Repetir Senha</label>
+            <input type="password" @bind-value="@repeatpassword"/>
+        </p>
+
+        <p>
             <label>Data de Nascimento</label>
             <input type="date" @bind-value="@birth"/>
         </p>
@@ -30,11 +35,29 @@
             Criar Conta
         </button>
     </div>
+    <div>
+        <p>
+            <label>Nome de Usuario</label>
+            <input type="text" @bind-value="@userId"/>
+        </p>
+
+        <p>
+            <label>Senha</label>
+            <input type="password" @bind-value="@password"/>
+        </p>
+
+        <button onclick="@Login">
+            Logar
+        </button>
+    </div>
 </div>
+
+
 @code 
 {
     private string name;
     private string password;
+    private string repeatpassword;
     private DateTime birth;
     private string userId;
 
@@ -45,5 +68,10 @@
             this.userId,
             this.birth, 
             this.password);
+    }
+
+    public async void Login()
+    {
+
     }
 }
