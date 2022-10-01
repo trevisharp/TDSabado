@@ -22,10 +22,33 @@ public class UserController : ControllerBase
     {
         using TDSabadoContext context 
             = new TDSabadoContext();
+        
+        List<string> errors = new List<string>();
 
+        if (user.BirthDate == null)
+        {
+            errors.Add("Data de nascimento não foi informada");
+        }
+
+        if (user.Name.Length < 5)
+        {
+            errors.Add("O nome do usuário precisa conter ao menos 5 letras.");
+        }
+
+        if (context.Usuarios
+            .Any(u => u.UserId == user.UserId))
+        {
+            errors.Add("Seu Nome de Usuário já está em uso!");
+        }
+
+        if (errors.Count > 0)
+        {
+            return this.BadRequest(errors);
+        }
+        
         Usuario usuario = new Usuario();
         usuario.Name = user.Name;
-        usuario.BirthDate = user.BirthDate;
+        usuario.BirthDate = user.BirthDate.Value;
         usuario.UserId = user.UserId;
         usuario.Userpass = user.Password;
 
