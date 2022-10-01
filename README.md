@@ -15,3 +15,7 @@ Commandos Úteis
 - dotnet watch
 - dotnet add reference [caminho pro csproj]
 - Set-ExecutionPolicy -ExecutionPolicy ByPass -Scope CurrentUser
+
+Links Importantes
+
+ - [Guia de Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)

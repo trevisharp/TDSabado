@@ -1,3 +1,9 @@
 .registercontainer {
     padding: 10px;
 }
+
+.logregcontainer {
+    display: flex;
+    flex-direction: row;
+    
+}

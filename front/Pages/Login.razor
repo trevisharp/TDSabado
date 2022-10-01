@@ -1,32 +1,36 @@
 @page "/login"
+
 @using Services;
 
-<div class="registercontainer">
-    <p>
-        <label>Nome Completo</label>
-        <input type="text" @bind-value="@name"/>
-    </p>
+@inject UserService service
 
-    <p>
-        <label>Senha</label>
-        <input type="password" @bind-value="@password"/>
-    </p>
+<div class="logregcontainer">
+    <div class="registercontainer">
+        <p>
+            <label>Nome Completo</label>
+            <input type="text" @bind-value="@name"/>
+        </p>
 
-    <p>
-        <label>Data de Nascimento</label>
-        <input type="date" @bind-value="@birth"/>
-    </p>
+        <p>
+            <label>Senha</label>
+            <input type="password" @bind-value="@password"/>
+        </p>
 
-    <p>
-        <label>Nome de Usuario</label>
-        <input type="text" @bind-value="@userId"/>
-    </p>
+        <p>
+            <label>Data de Nascimento</label>
+            <input type="date" @bind-value="@birth"/>
+        </p>
 
-    <button onclick="@CreateAccount">
-        Criar Conta
-    </button>
+        <p>
+            <label>Nome de Usuario</label>
+            <input type="text" @bind-value="@userId"/>
+        </p>
+
+        <button onclick="@CreateAccount">
+            Criar Conta
+        </button>
+    </div>
 </div>
-
 @code 
 {
     private string name;
@@ -36,9 +40,6 @@
 
     public async void CreateAccount()
     {
-        UserService service = new UserService(
-            "https://localhost:7029"
-        );
         await service.Register(
             this.name, 
             this.userId,
