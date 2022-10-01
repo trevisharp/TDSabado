@@ -10,9 +10,24 @@ using Model;
 public class UserController : ControllerBase
 {
     [HttpPost("login")]
-    public IActionResult Login()
+    public IActionResult Login(
+        [FromBody]UsuarioDTO user
+    )
     {
-        throw new NotImplementedException();
+        using TDSabadoContext context 
+            = new TDSabadoContext();
+        
+        var possibleUser = context.Usuarios
+            .FirstOrDefault(
+                u => u.UserId == user.UserId);
+        
+        if (possibleUser == null)
+            return BadRequest("Nome de usuário inválido");
+
+        if (possibleUser.Userpass != user.Password)
+            return BadRequest("Senha inválida!");
+        
+        return Ok();
     }
 
     [HttpPost("register")]
@@ -45,7 +60,7 @@ public class UserController : ControllerBase
         {
             return this.BadRequest(errors);
         }
-        
+
         Usuario usuario = new Usuario();
         usuario.Name = user.Name;
         usuario.BirthDate = user.BirthDate.Value;

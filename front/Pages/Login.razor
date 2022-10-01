@@ -72,6 +72,17 @@
 
     public async void UserLogin()
     {
-
+        var result = await service.Login(
+            this.userId,
+            this.password
+        );
+        if (result == null)
+        {
+            Console.WriteLine("Não logou");
+        }
+        else
+        {
+            Console.WriteLine("Logou");
+        }
     }
 }

@@ -1,4 +1,5 @@
 using dto;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -28,5 +29,22 @@ public class UserService
 
         var result = await client
             .PostAsJsonAsync("user/register", user);
+    }
+
+    public async Task<string> Login(
+        string userId,
+        string password
+    )
+    {
+        UsuarioDTO user = new UsuarioDTO();
+        user.UserId = userId;
+        user.Password = password;
+
+        var result = await client
+            .PostAsJsonAsync("user/login", user);
+        
+        if (result.StatusCode != HttpStatusCode.OK)
+            return null;
+        return "Logado com Sucesso";
     }
 }
