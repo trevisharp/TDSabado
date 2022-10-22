@@ -3,6 +3,7 @@ using dto;
 
 namespace back.Controllers;
 
+using Services;
 using Model;
 
 [ApiController]
@@ -11,7 +12,8 @@ public class UserController : ControllerBase
 {
     [HttpPost("login")]
     public IActionResult Login(
-        [FromBody]UsuarioDTO user
+        [FromBody]UsuarioDTO user,
+        [FromServices]TokenService service
     )
     {
         using TDSabadoContext context 
@@ -22,10 +24,10 @@ public class UserController : ControllerBase
                 u => u.UserId == user.UserId);
         
         if (possibleUser == null)
-            return BadRequest("Nome de usuário inválido");
+            return NotFound("Nome de usuário inválido");
 
         if (possibleUser.Userpass != user.Password)
-            return BadRequest("Senha inválida!");
+            return NotFound("Senha inválida!");
         
         return Ok();
     }
