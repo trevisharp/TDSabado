@@ -1,9 +1,11 @@
 @page "/login"
 
 @using Services;
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 
 @inject UserService service
 @inject NavigationManager nav
+@inject ProtectedSessionStorage storage
 
 <div class="logregcontainer">
     <div class="registercontainer">
@@ -98,6 +100,7 @@
             return;
         }
         
+        await storage.SetAsync("token", result);
         nav.NavigateTo("/");
     }
 }

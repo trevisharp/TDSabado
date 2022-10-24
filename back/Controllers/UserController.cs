@@ -11,7 +11,7 @@ using Model;
 public class UserController : ControllerBase
 {
     [HttpPost("login")]
-    public IActionResult Login(
+    public async Task<IActionResult> Login(
         [FromBody]UsuarioDTO user,
         [FromServices]TokenService service
     )
@@ -28,8 +28,9 @@ public class UserController : ControllerBase
 
         if (possibleUser.Userpass != user.Password)
             return NotFound("Senha inválida!");
-        
-        return Ok();
+
+        var token = await service.CreateToken(possibleUser);
+        return Ok(token.Value);
     }
 
     [HttpPost("register")]

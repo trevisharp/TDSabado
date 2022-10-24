@@ -45,6 +45,8 @@ public class UserService
         
         if (result.StatusCode != HttpStatusCode.OK)
             return null;
-        return "Logado com Sucesso";
+
+        var token = await result.Content.ReadAsStringAsync();
+        return token;
     }
 }
