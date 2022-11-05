@@ -6,6 +6,7 @@
 @inject UserService service
 @inject NavigationManager nav
 @inject ProtectedSessionStorage storage
+@inject IJSRuntime js
 
 <div class="logregcontainer">
     <div class="registercontainer">
@@ -68,6 +69,14 @@
     private string userId;
     private string loginError = "";
 
+    protected override async Task OnInitializedAsync()
+    {
+        @* Exemplo de uso de JS no Blazor
+        int value = await js.InvokeAsync<int>("Exemplo", 
+            new object[] { 10 });
+        Console.WriteLine(value); *@
+    }
+
     public async void CreateAccount()
     {
         await service.Register(
@@ -84,8 +93,8 @@
         this.repeatpassword = "";
         this.StateHasChanged();
     }
+    
     public async void UserLogin()
-
     {
         var result = await service.Login(
 
@@ -104,3 +113,4 @@
         nav.NavigateTo("/");
     }
 }
+
